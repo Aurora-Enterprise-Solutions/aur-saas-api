@@ -31,9 +31,9 @@ async function hasYarn() {
 if (process.argv.length < 3) {
   console.log('Please specify the target project directory.');
   console.log('For example:');
-  console.log('    npx create-nodejs-app my-app');
+  console.log('    npx create-nodejs-application my-application');
   console.log('    OR');
-  console.log('    npm init nodejs-app my-app');
+  console.log('    npm init nodejs-application my-application');
   process.exit(1);
 }
 
@@ -99,7 +99,7 @@ async function setup() {
     console.log(`    cd ${folderName}`);
     console.log(useYarn ? '    yarn dev' : '    npm run dev');
     console.log();
-    console.log('Enjoy your production-ready Node.js app, which already supports a large number of ready-made features!');
+    console.log('Enjoy your production-ready Node.js application, which already supports a large number of ready-made features!');
     console.log('Check README.md for more info.');
   } catch (error) {
     console.log(error);

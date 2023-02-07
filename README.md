@@ -16,13 +16,13 @@ As a result, this app is not compatible with Node.js >=19. You can add support t
 To create a project, simply run:
 
 ```bash
-npx create-nodejs-ts-app <project-name>
+npx create-nodejs-ts-application <project-name>
 ```
 
 Or
 
 ```bash
-npm init nodejs-ts-app <project-name>
+npm init nodejs-ts-application <project-name>
 ```
 
 ## Manual Installation

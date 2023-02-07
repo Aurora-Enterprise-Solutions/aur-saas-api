@@ -11,11 +11,23 @@ module.exports = {
     'plugin:security/recommended',
   ],
 
-  plugins: [ 'jest', 'security' ],
+  plugins: [ '@typescript-eslint', 'jest', 'security', 'hexagonal-architecture' ],
+
+  parser: '@typescript-eslint/parser',
 
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion : 2018,
+    sourceType  : 'module',
   },
+
+  overrides: [
+    {
+      files : [ 'src/modules/**/*.ts' ],
+      rules : {
+        'hexagonal-architecture/enforce': [ 'error' ],
+      },
+    },
+  ],
 
   rules: {
 
