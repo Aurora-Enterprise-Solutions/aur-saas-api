@@ -1,5 +1,19 @@
 components:
   schemas:
+    Tenant:
+      type: object
+      properties:
+        id:
+          type: string
+        cdn:
+          type: string
+        name:
+          type: string
+      example:
+        id: 5ebac534954b54139806c112
+        cdn: mycompany.aurora.es
+        name: My Company Name
+
     User:
       type: object
       properties:
@@ -12,12 +26,12 @@ components:
           type: string
         role:
           type: string
-          enum: [user, admin]
+          enum: [users, admin]
       example:
         id: 5ebac534954b54139806c112
         email: fake@example.com
         name: fake name
-        role: user
+        role: users
 
     Token:
       type: object
@@ -52,8 +66,12 @@ components:
       properties:
         code:
           type: number
+        internalStatusCode:
+          type: string
         message:
           type: string
+        meta:
+          type: object
 
   responses:
     DuplicateEmail:
@@ -73,6 +91,7 @@ components:
             $ref: '#/components/schemas/Error'
           example:
             code: 401
+            internalStatusCode: UNAUTHORIZED
             message: Please authenticate
     Forbidden:
       description: Forbidden
@@ -91,7 +110,22 @@ components:
             $ref: '#/components/schemas/Error'
           example:
             code: 404
+            internalStatusCode: SOMETHING_NOT_FOUND
             message: Not found
+            meta:
+              id: 5ebac534954b54139806c112
+    AlreadyExists:
+      description: Already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 409
+            internalStatusCode: SOMETHING_ALREADY_EXISTS
+            message: Already exists
+            meta:
+              id: 5ebac534954b54139806c112
 
   securitySchemes:
     bearerAuth:

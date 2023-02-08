@@ -1,6 +1,7 @@
 import express, { Router } from 'express'
-import authRoute from './auth.route'
 import docsRoute from './swagger.route'
+import authRoute from './auth.route'
+import tenantsRoutes from './tenants.route'
 import userRoute from './user.route'
 import config from '../../config/config'
 
@@ -9,6 +10,7 @@ const router = express.Router()
 interface IRoute {
   path: string;
   route: Router;
+  forceTenant?: string;
 }
 
 const defaultIRoute: IRoute[] = [
@@ -25,8 +27,14 @@ const defaultIRoute: IRoute[] = [
 const devIRoute: IRoute[] = [
   // IRoute available only in development mode
   {
-    path  : '/docs',
-    route : docsRoute,
+    path        : '/docs',
+    route       : docsRoute,
+    forceTenant : config.tenancy.managementTenantId,
+  },
+  {
+    path        : '/tenants',
+    route       : tenantsRoutes,
+    forceTenant : config.tenancy.managementTenantId,
   },
 ]
 
@@ -34,11 +42,12 @@ defaultIRoute.forEach((route) => {
   router.use(route.path, route.route)
 })
 
-/* istanbul ignore next */
 if (config.env === 'development') {
   devIRoute.forEach((route) => {
     router.use(route.path, route.route)
   })
 }
+
+export const routes = [ ...defaultIRoute, ...devIRoute ]
 
 export default router

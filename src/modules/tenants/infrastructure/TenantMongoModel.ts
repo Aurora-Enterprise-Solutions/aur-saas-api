@@ -1,13 +1,11 @@
-import { prop } from '@typegoose/typegoose'
-import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
-import { Types } from 'mongoose'
-import Tenant from '@/modules/tenants/domain/Tenant'
+import { modelOptions, plugin, prop } from '@typegoose/typegoose'
+import paginate from 'mongoose-paginate-v2'
+import toJSON from '@/modules/shared/infrastructure/toJSON'
 
-export class TenantMongoModel extends TimeStamps implements Tenant {
-  @prop({ required: true })
-    _id!: Types.ObjectId
-  @prop({ required: true })
-    id!: string
+@plugin(toJSON)
+@plugin(paginate)
+@modelOptions({ schemaOptions: { collection: 'tenants', timestamps: true } })
+export class TenantMongoModel {
   @prop({ required: true })
     cdn!: string
   @prop({ required: true })

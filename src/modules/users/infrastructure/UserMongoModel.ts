@@ -4,7 +4,7 @@ import { plugin, prop } from '@typegoose/typegoose'
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
 import toJSON from '@/modules/shared/infrastructure/toJSON'
 import { PaginateMethod } from '@/modules/shared/domain/paginate/types'
-import User from '@/modules/user/domain/User'
+import User from '@/modules/users/domain/User'
 
 @plugin(toJSON)
 @plugin(paginate)

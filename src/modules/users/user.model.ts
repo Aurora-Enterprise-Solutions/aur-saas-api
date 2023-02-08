@@ -52,8 +52,8 @@ userSchema.plugin(toJSON)
 
 /**
  * Check if email is taken
- * @param {string} email - The user's email
- * @param {ObjectId} [excludeUserId] - The id of the user to be excluded
+ * @param {string} email - The users's email
+ * @param {ObjectId} [excludeUserId] - The id of the users to be excluded
  * @returns {Promise<boolean>}
  */
 userSchema.static('isEmailTaken', async function (email: string, excludeUserId: mongoose.ObjectId): Promise<boolean> {
@@ -62,7 +62,7 @@ userSchema.static('isEmailTaken', async function (email: string, excludeUserId: 
 })
 
 /**
- * Check if password matches the user's password
+ * Check if password matches the users's password
  * @param {string} password
  * @returns {Promise<boolean>}
  */

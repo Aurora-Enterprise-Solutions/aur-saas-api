@@ -1,6 +1,7 @@
-import { Base } from '@typegoose/typegoose/lib/defaultClasses'
-
-export default interface Tenant extends Base {
+export interface Tenant {
+  id: string;
   cdn: string;
   name: string;
 }
+
+export type NewCreatedTenant = Exclude<Tenant, 'id'>

@@ -8,8 +8,8 @@
 // import tokenTypes from '../../api/shared/token.types'
 // import * as tokenService from '../token/token.service'
 // import app from '../../app'
-// import User from './user.model'
-// import { NewCreatedUser } from './user.interfaces'
+// import User from './users.model'
+// import { NewCreatedUser } from './users.interfaces'
 // import setupTestDB from '../../../test/setupTestDB'
 //
 // setupTestDB()
@@ -24,7 +24,7 @@
 //   name            : faker.name.findName(),
 //   email           : faker.internet.email().toLowerCase(),
 //   password,
-//   role            : 'user',
+//   role            : 'users',
 //   isEmailVerified : false,
 // }
 //
@@ -33,7 +33,7 @@
 //   name            : faker.name.findName(),
 //   email           : faker.internet.email().toLowerCase(),
 //   password,
-//   role            : 'user',
+//   role            : 'users',
 //   isEmailVerified : false,
 // }
 //
@@ -50,7 +50,7 @@
 // const adminAccessToken = tokenService.generateToken(admin._id, accessTokenExpires, tokenTypes.ACCESS)
 //
 // const insertUsers = async (users: Record<string, any>[]) => {
-//   await User.insertMany(users.map((user) => ({ ...user, password: hashedPassword })))
+//   await User.insertMany(users.map((users) => ({ ...users, password: hashedPassword })))
 // }
 //
 // describe('User routes', () => {
@@ -62,11 +62,11 @@
 //         name     : faker.name.findName(),
 //         email    : faker.internet.email().toLowerCase(),
 //         password : 'password1',
-//         role     : 'user',
+//         role     : 'users',
 //       }
 //     })
 //
-//     test('should return 201 and successfully create new user if data is ok', async () => {
+//     test('should return 201 and successfully create new users if data is ok', async () => {
 //       await insertUsers([ admin ])
 //
 //       const res = await request(app)
@@ -114,7 +114,7 @@
 //       await request(app).post('/v1/users').send(newUser).expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 403 error if logged in user is not admin', async () => {
+//     test('should return 403 error if logged in users is not admin', async () => {
 //       await insertUsers([ userOne ])
 //
 //       await request(app)
@@ -176,7 +176,7 @@
 //         .expect(httpStatus.BAD_REQUEST)
 //     })
 //
-//     test('should return 400 error if role is neither user nor admin', async () => {
+//     test('should return 400 error if role is neither users nor admin', async () => {
 //       await insertUsers([ admin ]);
 //       (newUser as any).role = 'invalid'
 //
@@ -258,7 +258,7 @@
 //       const res = await request(app)
 //         .get('/v1/users')
 //         .set('Authorization', `Bearer ${adminAccessToken}`)
-//         .query({ role: 'user' })
+//         .query({ role: 'users' })
 //         .send()
 //         .expect(httpStatus.OK)
 //
@@ -349,8 +349,8 @@
 //         return a.name < b.name ? -1 : 1
 //       })
 //
-//       expectedOrder.forEach((user, index) => {
-//         expect(res.body.results[index].id).toBe(user._id.toHexString())
+//       expectedOrder.forEach((users, index) => {
+//         expect(res.body.results[index].id).toBe(users._id.toHexString())
 //       })
 //     })
 //
@@ -399,7 +399,7 @@
 //   })
 //
 //   describe('GET /v1/users/:userId', () => {
-//     test('should return 200 and the user object if data is ok', async () => {
+//     test('should return 200 and the users object if data is ok', async () => {
 //       await insertUsers([ userOne ])
 //
 //       const res = await request(app)
@@ -424,7 +424,7 @@
 //       await request(app).get(`/v1/users/${userOne._id}`).send().expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 403 error if user is trying to get another user', async () => {
+//     test('should return 403 error if users is trying to get another users', async () => {
 //       await insertUsers([ userOne, userTwo ])
 //
 //       await request(app)
@@ -434,7 +434,7 @@
 //         .expect(httpStatus.FORBIDDEN)
 //     })
 //
-//     test('should return 200 and the user object if admin is trying to get another user', async () => {
+//     test('should return 200 and the users object if admin is trying to get another users', async () => {
 //       await insertUsers([ userOne, admin ])
 //
 //       await request(app)
@@ -454,7 +454,7 @@
 //         .expect(httpStatus.BAD_REQUEST)
 //     })
 //
-//     test('should return 404 error if user is not found', async () => {
+//     test('should return 404 error if users is not found', async () => {
 //       await insertUsers([ admin ])
 //
 //       await request(app)
@@ -485,7 +485,7 @@
 //       await request(app).delete(`/v1/users/${userOne._id}`).send().expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 403 error if user is trying to delete another user', async () => {
+//     test('should return 403 error if users is trying to delete another users', async () => {
 //       await insertUsers([ userOne, userTwo ])
 //
 //       await request(app)
@@ -495,7 +495,7 @@
 //         .expect(httpStatus.FORBIDDEN)
 //     })
 //
-//     test('should return 204 if admin is trying to delete another user', async () => {
+//     test('should return 204 if admin is trying to delete another users', async () => {
 //       await insertUsers([ userOne, admin ])
 //
 //       await request(app)
@@ -515,7 +515,7 @@
 //         .expect(httpStatus.BAD_REQUEST)
 //     })
 //
-//     test('should return 404 error if user already is not found', async () => {
+//     test('should return 404 error if users already is not found', async () => {
 //       await insertUsers([ admin ])
 //
 //       await request(app)
@@ -527,7 +527,7 @@
 //   })
 //
 //   describe('PATCH /v1/users/:userId', () => {
-//     test('should return 200 and successfully update user if data is ok', async () => {
+//     test('should return 200 and successfully update users if data is ok', async () => {
 //       await insertUsers([ userOne ])
 //       const updateBody = {
 //         name     : faker.name.findName(),
@@ -546,7 +546,7 @@
 //         id              : userOne._id.toHexString(),
 //         name            : updateBody.name,
 //         email           : updateBody.email,
-//         role            : 'user',
+//         role            : 'users',
 //         isEmailVerified : false,
 //       })
 //
@@ -554,7 +554,7 @@
 //       expect(dbUser).toBeDefined()
 //       if (!dbUser) return
 //       expect(dbUser.password).not.toBe(updateBody.password)
-//       expect(dbUser).toMatchObject({ name: updateBody.name, email: updateBody.email, role: 'user' })
+//       expect(dbUser).toMatchObject({ name: updateBody.name, email: updateBody.email, role: 'users' })
 //     })
 //
 //     test('should return 401 error if access token is missing', async () => {
@@ -564,7 +564,7 @@
 //       await request(app).patch(`/v1/users/${userOne._id}`).send(updateBody).expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 403 if user is updating another user', async () => {
+//     test('should return 403 if users is updating another users', async () => {
 //       await insertUsers([ userOne, userTwo ])
 //       const updateBody = { name: faker.name.findName() }
 //
@@ -575,7 +575,7 @@
 //         .expect(httpStatus.FORBIDDEN)
 //     })
 //
-//     test('should return 200 and successfully update user if admin is updating another user', async () => {
+//     test('should return 200 and successfully update users if admin is updating another users', async () => {
 //       await insertUsers([ userOne, admin ])
 //       const updateBody = { name: faker.name.findName() }
 //
@@ -586,7 +586,7 @@
 //         .expect(httpStatus.OK)
 //     })
 //
-//     test('should return 404 if admin is updating another user that is not found', async () => {
+//     test('should return 404 if admin is updating another users that is not found', async () => {
 //       await insertUsers([ admin ])
 //       const updateBody = { name: faker.name.findName() }
 //

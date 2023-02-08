@@ -319,8 +319,8 @@ The validation schemas are defined in the `src/validations` directory and are us
 ```javascript
 const express = require('express');
 const validate = require('../../middlewares/validate');
-const userValidation = require('../../validations/user.validation');
-const userController = require('../../controllers/user.controller');
+const userValidation = require('../../validations/users.validation');
+const userController = require('../../controllers/users.controller');
 
 const router = express.Router();
 
@@ -334,7 +334,7 @@ To require authentication for certain routes, you can use the `auth` middleware.
 ```javascript
 const express = require('express');
 const auth = require('../../middlewares/auth');
-const userController = require('../../controllers/user.controller');
+const userController = require('../../controllers/users.controller');
 
 const router = express.Router();
 
@@ -362,7 +362,7 @@ The `auth` middleware can also be used to require certain rights/permissions to 
 ```javascript
 const express = require('express');
 const auth = require('../../middlewares/auth');
-const userController = require('../../controllers/user.controller');
+const userController = require('../../controllers/users.controller');
 
 const router = express.Router();
 

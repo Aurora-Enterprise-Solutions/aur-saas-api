@@ -26,7 +26,7 @@ export default router
  * @swagger
  * /auth/register:
  *   post:
- *     summary: Register as user
+ *     summary: Register as users
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -62,7 +62,7 @@ export default router
  *             schema:
  *               type: object
  *               properties:
- *                 user:
+ *                 users:
  *                   $ref: '#/components/schemas/User'
  *                 tokens:
  *                   $ref: '#/components/schemas/AuthTokens'
@@ -103,7 +103,7 @@ export default router
  *             schema:
  *               type: object
  *               properties:
- *                 user:
+ *                 users:
  *                   $ref: '#/components/schemas/User'
  *                 tokens:
  *                   $ref: '#/components/schemas/AuthTokens'

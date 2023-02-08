@@ -3,6 +3,7 @@ import Joi from 'joi'
 import httpStatus from 'http-status'
 import pick from '../utils/pick'
 import ApiError from '../shared/ApiError'
+import ApiErrorCodes from '@/api/shared/ApiErrorCodes'
 
 const validate =
   (schema: Record<string, any>) =>
@@ -15,7 +16,11 @@ const validate =
 
       if (error) {
         const errorMessage = error.details.map((details) => details.message).join(', ')
-        return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage))
+        return next(new ApiError({
+          statusCode         : httpStatus.BAD_REQUEST,
+          message            : errorMessage,
+          internalStatusCode : ApiErrorCodes.INVALID_REQUEST_SCHEMA,
+        }))
       }
       Object.assign(req, value)
       return next()

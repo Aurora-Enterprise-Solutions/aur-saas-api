@@ -1,10 +1,10 @@
 import { getModelForClass } from '@typegoose/typegoose'
-import UserRepository from '@/modules/user/domain/UserRepository'
-import User from '@/modules/user/domain/User'
-import { UserMongoModel } from '@/modules/user/infrastructure/UserMongoModel'
+import UsersRepository from '@/modules/users/domain/UsersRepository'
+import User from '@/modules/users/domain/User'
+import { UserMongoModel } from '@/modules/users/infrastructure/UserMongoModel'
 import { PaginateResult } from '@/modules/shared/domain/paginate/types'
 
-export default class UserMongoRepository implements UserRepository {
+export default class UserMongoRepository implements UsersRepository {
   query(filter: Record<string, any>, options: Record<string, any>): Promise<PaginateResult<User>> {
     const UserModel = getModelForClass(UserMongoModel)
     return UserModel.paginate(filter, options)

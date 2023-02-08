@@ -9,9 +9,9 @@
 // import { jest } from '@jest/globals'
 // import app from '../../app'
 // import setupTestDB from '../jest/setupTestDB'
-// import User from '../user/user.model'
+// import User from '../users/users.model'
 // import config from '../../api/config/config'
-// import { NewRegisteredUser } from '../user/user.interfaces'
+// import { NewRegisteredUser } from '../users/users.interfaces'
 // import * as tokenService from '../token/token.service'
 // import tokenTypes from '../../api/shared/token.types'
 // import Token from '../token/token.model'
@@ -30,14 +30,14 @@
 //   name            : faker.name.findName(),
 //   email           : faker.internet.email().toLowerCase(),
 //   password,
-//   role            : 'user',
+//   role            : 'users',
 //   isEmailVerified : false,
 // }
 //
 // const userOneAccessToken = tokenService.generateToken(userOne._id, accessTokenExpires, tokenTypes.ACCESS)
 //
 // const insertUsers = async (users: Record<string, any>[]) => {
-//   await User.insertMany(users.map((user) => ({ ...user, password: hashedPassword })))
+//   await User.insertMany(users.map((users) => ({ ...users, password: hashedPassword })))
 // }
 //
 // describe('Auth routes', () => {
@@ -51,21 +51,21 @@
 //       }
 //     })
 //
-//     test('should return 201 and successfully register user if request data is ok', async () => {
+//     test('should return 201 and successfully register users if request data is ok', async () => {
 //       const res = await request(app).post('/v1/auth/register').send(newUser).expect(httpStatus.CREATED)
 //
-//       expect(res.body.user).not.toHaveProperty('password')
-//       expect(res.body.user).toEqual({
+//       expect(res.body.users).not.toHaveProperty('password')
+//       expect(res.body.users).toEqual({
 //         id              : expect.anything(),
 //         name            : newUser.name,
 //         email           : newUser.email,
-//         role            : 'user',
+//         role            : 'users',
 //         isEmailVerified : false,
 //       })
 //
-//       const dbUser = await User.findById(res.body.user.id)
+//       const dbUser = await User.findById(res.body.users.id)
 //       expect(dbUser).toBeDefined()
-//       expect(dbUser).toMatchObject({ name: newUser.name, email: newUser.email, role: 'user', isEmailVerified: false })
+//       expect(dbUser).toMatchObject({ name: newUser.name, email: newUser.email, role: 'users', isEmailVerified: false })
 //
 //       expect(res.body.tokens).toEqual({
 //         access  : { token: expect.anything(), expires: expect.anything() },
@@ -104,7 +104,7 @@
 //   })
 //
 //   describe('POST /v1/auth/login', () => {
-//     test('should return 200 and login user if email and password match', async () => {
+//     test('should return 200 and login users if email and password match', async () => {
 //       await insertUsers([ userOne ])
 //       const loginCredentials = {
 //         email    : userOne.email,
@@ -113,7 +113,7 @@
 //
 //       const res = await request(app).post('/v1/auth/login').send(loginCredentials).expect(httpStatus.OK)
 //
-//       expect(res.body.user).toEqual({
+//       expect(res.body.users).toEqual({
 //         id              : expect.anything(),
 //         name            : userOne.name,
 //         email           : userOne.email,
@@ -195,7 +195,7 @@
 //
 //       const res = await request(app).post('/v1/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.OK)
 //
-//       expect(res.body.user).toEqual({
+//       expect(res.body.users).toEqual({
 //         id              : expect.anything(),
 //         name            : userOne.name,
 //         email           : userOne.email,
@@ -209,7 +209,7 @@
 //       })
 //
 //       const dbRefreshTokenDoc = await Token.findOne({ token: res.body.tokens.refresh.token })
-//       expect(dbRefreshTokenDoc).toMatchObject({ type: tokenTypes.REFRESH, user: userOne._id, blacklisted: false })
+//       expect(dbRefreshTokenDoc).toMatchObject({ type: tokenTypes.REFRESH, users: userOne._id, blacklisted: false })
 //
 //       const dbRefreshTokenCount = await Token.countDocuments()
 //       expect(dbRefreshTokenCount).toBe(1)
@@ -254,7 +254,7 @@
 //       await request(app).post('/v1/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 401 error if user is not found', async () => {
+//     test('should return 401 error if users is not found', async () => {
 //       const expires = moment().add(config.jwt.refreshExpirationDays, 'days')
 //       const refreshToken = tokenService.generateToken(userOne._id, expires, tokenTypes.REFRESH)
 //       await tokenService.saveToken(refreshToken, userOne._id, expires, tokenTypes.REFRESH)
@@ -283,7 +283,7 @@
 //         expect(isPasswordMatch).toBe(true)
 //       }
 //
-//       // const dbResetPasswordTokenCount = await Token.countDocuments({ user: userOne._id, type: tokenTypes.RESET_PASSWORD });
+//       // const dbResetPasswordTokenCount = await Token.countDocuments({ users: userOne._id, type: tokenTypes.RESET_PASSWORD });
 //       // expect(dbResetPasswordTokenCount).toBe(0);
 //     })
 //
@@ -319,7 +319,7 @@
 //         .expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 401 if user is not found', async () => {
+//     test('should return 401 if users is not found', async () => {
 //       const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes')
 //       const resetPasswordToken = tokenService.generateToken(userOne._id, expires, tokenTypes.RESET_PASSWORD)
 //       await tokenService.saveToken(resetPasswordToken, userOne._id, expires, tokenTypes.RESET_PASSWORD)
@@ -409,7 +409,7 @@
 //         .expect(httpStatus.UNAUTHORIZED)
 //     })
 //
-//     test('should return 401 if user is not found', async () => {
+//     test('should return 401 if users is not found', async () => {
 //       const expires = moment().add(config.jwt.verifyEmailExpirationMinutes, 'minutes')
 //       const verifyEmailToken = tokenService.generateToken(userOne._id, expires, tokenTypes.VERIFY_EMAIL)
 //       await tokenService.saveToken(verifyEmailToken, userOne._id, expires, tokenTypes.VERIFY_EMAIL)
@@ -432,7 +432,7 @@
 //     await authentication()(req, httpMocks.createResponse(), next)
 //
 //     expect(next).toHaveBeenCalledWith()
-//     expect(req.user._id).toEqual(userOne._id)
+//     expect(req.users._id).toEqual(userOne._id)
 //   })
 //
 //   test('should call next with unauthorized error if access token is not found in header', async () => {
@@ -506,7 +506,7 @@
 //     )
 //   })
 //
-//   test('should call next with unauthorized error if user is not found', async () => {
+//   test('should call next with unauthorized error if users is not found', async () => {
 //     const req = httpMocks.createRequest({ headers: { Authorization: `Bearer ${userOneAccessToken}` } })
 //     const next = jest.fn()
 //
@@ -518,7 +518,7 @@
 //     )
 //   })
 //
-//   test('should call next with forbidden error if user does not have required rights and userId is not in params', async () => {
+//   test('should call next with forbidden error if users does not have required rights and userId is not in params', async () => {
 //     await insertUsers([ userOne ])
 //     const req = httpMocks.createRequest({ headers: { Authorization: `Bearer ${userOneAccessToken}` } })
 //     const next = jest.fn()
@@ -529,7 +529,7 @@
 //     expect(next).toHaveBeenCalledWith(expect.objectContaining({ statusCode: httpStatus.FORBIDDEN, message: 'Forbidden' }))
 //   })
 //
-//   test('should call next with no errors if user does not have required rights but userId is in params', async () => {
+//   test('should call next with no errors if users does not have required rights but userId is in params', async () => {
 //     await insertUsers([ userOne ])
 //     const req = httpMocks.createRequest({
 //       headers : { Authorization: `Bearer ${userOneAccessToken}` },

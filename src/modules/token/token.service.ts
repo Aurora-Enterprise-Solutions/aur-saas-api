@@ -1,14 +1,12 @@
 import jwt from 'jsonwebtoken'
 import moment, { Moment } from 'moment'
 import mongoose from 'mongoose'
-import httpStatus from 'http-status'
 import config from '../../api/config/config'
 import Token from './token.model'
-import ApiError from '../../api/shared/ApiError'
 import tokenTypes from '../../api/shared/token.types'
 import { AccessAndRefreshTokens, ITokenDoc } from './token.interfaces'
-import { IUserDoc } from '../user/user.interfaces'
-import { userService } from '../user'
+import { IUserDoc } from '../users/user.interfaces'
+import { userService } from '../users'
 
 /**
  * Generate token
@@ -67,8 +65,8 @@ export const saveToken = async (
  */
 export const verifyToken = async (token: string, type: string): Promise<ITokenDoc> => {
   const payload = jwt.verify(token, config.jwt.secret)
-  if (typeof payload.sub !== 'string')
-    throw new ApiError(httpStatus.BAD_REQUEST, 'bad user')
+  // if (typeof payload.sub !== 'string')
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'bad users')
 
   const tokenDoc = await Token.findOne({
     token,
@@ -114,12 +112,12 @@ export const generateAuthTokens = async (user: IUserDoc): Promise<AccessAndRefre
  */
 export const generateResetPasswordToken = async (email: string): Promise<string> => {
   const user = await userService.getUserByEmail(email)
-  if (!user)
-    throw new ApiError(httpStatus.NO_CONTENT, '')
+  // if (!user)
+  //   throw new ApiError(httpStatus.NO_CONTENT, '')
 
   const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes')
-  const resetPasswordToken = generateToken(user.id, expires, tokenTypes.RESET_PASSWORD)
-  await saveToken(resetPasswordToken, user.id, expires, tokenTypes.RESET_PASSWORD)
+  const resetPasswordToken = generateToken(user!.id, expires, tokenTypes.RESET_PASSWORD)
+  await saveToken(resetPasswordToken, user!.id, expires, tokenTypes.RESET_PASSWORD)
   return resetPasswordToken
 }
 

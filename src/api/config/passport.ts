@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
 import tokenTypes from '@/api/shared/token.types'
 import config from '@/api/config/config'
-import User from '@/modules/user/user.model'
+import User from '@/modules/users/user.model'
 import UserModel from '@/modules/auth/domain/UserModel'
 import TokenPayload from '@/modules/auth/domain/TokenPayload'
 

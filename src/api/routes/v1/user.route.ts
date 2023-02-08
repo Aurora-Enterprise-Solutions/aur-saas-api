@@ -1,5 +1,5 @@
 import express, { Router } from 'express'
-import { userController, userValidation } from '../../../modules/user'
+import { userController, userValidation } from '../../../modules/users'
 import auth from '@/api/middlewares/authentication'
 import validate from '@/api/middlewares/validateRequestSchema'
 
@@ -10,11 +10,11 @@ router
   .post(auth(), validate(userValidation.createUser), userController.createUser)
   .get(auth(), validate(userValidation.getUsers), userController.getUsers)
 
-router
-  .route('/:userId')
-  .get(auth(), validate(userValidation.getUser), userController.getUser)
-  .patch(auth(), validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth(), validate(userValidation.deleteUser), userController.deleteUser)
+// router
+//   .route('/:userId')
+//   .get(auth(), validate(userValidation.getUser), userController.getUser)
+//   .patch(auth(), validate(userValidation.updateUser), userController.updateUser)
+//   .delete(auth(), validate(userValidation.deleteUser), userController.deleteUser)
 
 export default router
 
@@ -29,7 +29,7 @@ export default router
  * @swagger
  * /users:
  *   post:
- *     summary: Create a user
+ *     summary: Create a users
  *     description: Only admins can create other users.
  *     tags: [Users]
  *     security:
@@ -59,12 +59,12 @@ export default router
  *                 description: At least one number and one letter
  *               role:
  *                  type: string
- *                  enum: [user, admin]
+ *                  enum: [users, admin]
  *             example:
  *               name: fake name
  *               email: fake@example.com
  *               password: password1
- *               role: user
+ *               role: users
  *     responses:
  *       "201":
  *         description: Created
@@ -154,8 +154,8 @@ export default router
  * @swagger
  * /users/{id}:
  *   get:
- *     summary: Get a user
- *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     summary: Get a users
+ *     description: Logged in users can fetch only their own users information. Only admins can fetch other users.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -181,7 +181,7 @@ export default router
  *         $ref: '#/components/responses/NotFound'
  *
  *   patch:
- *     summary: Update a user
+ *     summary: Update a users
  *     description: Logged in users can only update their own information. Only admins can update other users.
  *     tags: [Users]
  *     security:
@@ -232,7 +232,7 @@ export default router
  *         $ref: '#/components/responses/NotFound'
  *
  *   delete:
- *     summary: Delete a user
+ *     summary: Delete a users
  *     description: Logged in users can delete only themselves. Only admins can delete other users.
  *     tags: [Users]
  *     security:

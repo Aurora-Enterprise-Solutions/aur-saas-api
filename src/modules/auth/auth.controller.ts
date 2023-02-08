@@ -2,21 +2,21 @@
 // import { Request, Response } from 'express'
 // import catchAsync from '../../api/utils/catchAsync'
 // import { tokenService } from '../token'
-// import { userService } from '../user'
+// import { userService } from '../users'
 // import * as authService from './auth.service'
 // import { emailService } from '../email'
 //
 // export const register = catchAsync(async (req: Request, res: Response) => {
-//   const user = await userService.registerUser(req.body)
-//   const tokens = await tokenService.generateAuthTokens(user)
-//   res.status(httpStatus.CREATED).send({ user, tokens })
+//   const users = await userService.registerUser(req.body)
+//   const tokens = await tokenService.generateAuthTokens(users)
+//   res.status(httpStatus.CREATED).send({ users, tokens })
 // })
 //
 // export const login = catchAsync(async (req: Request, res: Response) => {
 //   const { email, password } = req.body
-//   const user = await authService.loginUserWithEmailAndPassword(email, password)
-//   const tokens = await tokenService.generateAuthTokens(user)
-//   res.send({ user, tokens })
+//   const users = await authService.loginUserWithEmailAndPassword(email, password)
+//   const tokens = await tokenService.generateAuthTokens(users)
+//   res.send({ users, tokens })
 // })
 //
 // export const logout = catchAsync(async (req: Request, res: Response) => {
@@ -41,8 +41,8 @@
 // })
 //
 // export const sendVerificationEmail = catchAsync(async (req: Request, res: Response) => {
-//   const verifyEmailToken = await tokenService.generateVerifyEmailToken(req.user)
-//   await emailService.sendVerificationEmail(req.user.email, verifyEmailToken, req.user.name)
+//   const verifyEmailToken = await tokenService.generateVerifyEmailToken(req.users)
+//   await emailService.sendVerificationEmail(req.users.email, verifyEmailToken, req.users.name)
 //   res.status(httpStatus.NO_CONTENT).send()
 // })
 //
