@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import User from './user.model'
 import ApiError from '../../api/shared/ApiError'
 import { IOptions, QueryResult } from '../../api/utils/paginate_deprecated/paginate'
-import { NewCreatedUser, UpdateUserBody, IUserDoc, NewRegisteredUser } from './user.interfaces'
+import { NewCreatedUser, UpdateUserBody, IUserDoc } from './user.interfaces'
 
 /**
  * Create a users
@@ -11,22 +11,6 @@ import { NewCreatedUser, UpdateUserBody, IUserDoc, NewRegisteredUser } from './u
  * @returns {Promise<IUserDoc>}
  */
 export const createUser = async (userBody: NewCreatedUser): Promise<IUserDoc> => {
-  if (await User.isEmailTaken(userBody.email)) {
-    throw new ApiError({
-      statusCode : httpStatus.BAD_REQUEST,
-      message    : 'Email already taken',
-    })
-  }
-
-  return User.create(userBody)
-}
-
-/**
- * Register a users
- * @param {NewRegisteredUser} userBody
- * @returns {Promise<IUserDoc>}
- */
-export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDoc> => {
   if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError({
       statusCode : httpStatus.BAD_REQUEST,

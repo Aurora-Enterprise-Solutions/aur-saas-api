@@ -1,8 +1,9 @@
-import { Base } from '@typegoose/typegoose/lib/defaultClasses'
-
-export default interface User extends Base {
+export default interface User {
   id: string;
   username: string;
   password: string;
+  role: string;
   email?: string;
 }
+
+export type NewCreatedUser = Omit<User, 'id'>

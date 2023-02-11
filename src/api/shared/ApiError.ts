@@ -5,7 +5,7 @@ export type ApiErrorProps = {
   statusCode: number;
   isOperational?: boolean;
   stack?: string;
-  internalStatusCode?: string;
+  internalStatusCode?: string | undefined;
   meta?: Record<string, any>;
 }
 

@@ -1,14 +1,18 @@
 import express, { Router } from 'express'
-import { userController, userValidation } from '../../../modules/users'
-import auth from '@/api/middlewares/authentication'
+// import auth from '@/api/middlewares/authentication'
 import validate from '@/api/middlewares/validateRequestSchema'
+import UsersController from '@/api/controllers/UsersController'
+import UsersMongoRepository from '@/modules/users/infrastructure/UsersMongoRepository'
+import { createUser, queryUsers } from '@/api/validations/user.validation'
 
 const router: Router = express.Router()
 
+const controller = new UsersController(new UsersMongoRepository())
+
 router
   .route('/')
-  .post(auth(), validate(userValidation.createUser), userController.createUser)
-  .get(auth(), validate(userValidation.getUsers), userController.getUsers)
+  .post(validate(createUser), controller.createUser)
+  .get(validate(queryUsers), controller.queryUsers)
 
 // router
 //   .route('/:userId')
@@ -81,7 +85,6 @@ export default router
  *
  *   get:
  *     summary: Get all users
- *     description: Only admins can retrieve all users.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []

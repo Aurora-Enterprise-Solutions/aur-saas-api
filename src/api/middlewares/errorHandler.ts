@@ -7,6 +7,9 @@ import ApiErrorCodes from '@/api/shared/ApiErrorCodes'
 
 export default function errorHandler(err: ApiError, _req: Request, res: Response, _next: NextFunction) {
   let { statusCode, message, internalStatusCode } = err
+
+  internalStatusCode = internalStatusCode || ApiErrorCodes.UNCONTROLLED_ERROR
+
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR
     message = 'Internal Server Error'

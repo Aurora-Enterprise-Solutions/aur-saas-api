@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
+import auth from '@/api/middlewares/authentication'
 import TenantsController from '@/api/controllers/TenantsController'
 import TenantsMongoRepository from '@/modules/tenants/infrastructure/TenantsMongoRepository'
-import auth from '@/api/middlewares/authentication'
 
 const router: Router = express.Router()
 

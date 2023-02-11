@@ -31,7 +31,7 @@ export default class TenantsController {
       res.status(httpStatus.CREATED).json(tenant)
     }
     catch (error) {
-      let reason = ApiErrorCodes.UNCONTROLLED_ERROR
+      let reason
 
       if (error instanceof TenantAlreadyExists)
         reason = ApiErrorCodes.TENANT_ALREADY_EXISTS
