@@ -1,0 +1,13 @@
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        internalStatusCode:
+          type: string
+        message:
+          type: string
+        meta:
+          type: object

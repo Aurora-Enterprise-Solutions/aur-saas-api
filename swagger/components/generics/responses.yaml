@@ -1,0 +1,45 @@
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            internalStatusCode: UNAUTHORIZED
+            message: Please authenticate
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 403
+            message: Forbidden
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            internalStatusCode: SOMETHING_NOT_FOUND
+            message: Not found
+            meta:
+              id: 5ebac534954b54139806c112
+    AlreadyExists:
+      description: Already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 409
+            internalStatusCode: SOMETHING_ALREADY_EXISTS
+            message: Already exists
+            meta:
+              id: 5ebac534954b54139806c112

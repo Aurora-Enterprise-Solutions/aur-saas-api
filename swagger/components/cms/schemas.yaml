@@ -1,0 +1,90 @@
+components:
+  schemas:
+    NewDocType:
+      type: object
+      required:
+        - collectionName
+        - info
+        - options
+        - attributes
+      properties:
+        collectionName:
+          type: string
+          description: the name of the collection / table
+        info:
+          type: object
+          description: doctype info
+          properties:
+            name:
+              type: string
+              description: the name of the doctype
+            singularName:
+              type: string
+              description: the singular name of the doctype
+            pluralName:
+              type: string
+              description: the plural name of the doctype
+        options:
+          type: object
+          description: doctype options
+          properties:
+            publish:
+              type: boolean
+              description: indicates if the doctype has to be published
+        attributes:
+          type: object
+          description: doctype attributes
+          required:
+            - type
+            - databaseConfig
+          additionalProperties:
+            type: object
+            properties:
+              type:
+                type: string
+                description: its nature and defines the attributes that can be used
+              required:
+                type: boolean
+                description: indicates if the attribute is required
+                default: false
+              caseSensitive:
+                type: boolean
+                description: indicates if the attribute is case sensitive
+                default: false
+              max:
+                type: integer
+                description: indicates the max allowed value
+              min:
+                type: integer
+                description: indicates the min allowed value
+              maxLength:
+                type: integer
+                description: indicates the max length of characters allowed in a string
+              minLength:
+                type: integer
+                description: indicates the min length of characters allowed in a string
+              private:
+                type: boolean
+                description: indicates if this attribute has to be removed from the server response
+              databaseConfig:
+                type: object
+                description: database configuration column
+                properties:
+                  index:
+                    type: boolean
+                    description: indicates if the attribute is an index in the collection
+                    default: false
+                  unique:
+                    type: boolean
+                    description: indicates if the attribute is unique in the collection
+                    default: false
+
+    EditDocType:
+      allOf:
+        - required:
+            - referenceId
+        - properties:
+            referenceId:
+              type: string
+              description: id that is used for doc-types relationship
+        - $ref: '#/components/schemas/NewDocType'

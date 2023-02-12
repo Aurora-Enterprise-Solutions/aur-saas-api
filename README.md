@@ -16,13 +16,13 @@ As a result, this app is not compatible with Node.js >=19. You can add support t
 To create a project, simply run:
 
 ```bash
-npx create-nodejs-ts-app <project-name>
+npx create-nodejs-ts-application <project-name>
 ```
 
 Or
 
 ```bash
-npm init nodejs-ts-app <project-name>
+npm init nodejs-ts-application <project-name>
 ```
 
 ## Manual Installation
@@ -319,8 +319,8 @@ The validation schemas are defined in the `src/validations` directory and are us
 ```javascript
 const express = require('express');
 const validate = require('../../middlewares/validate');
-const userValidation = require('../../validations/user.validation');
-const userController = require('../../controllers/user.controller');
+const userValidation = require('../../validations/users.validation');
+const userController = require('../../controllers/users.controller');
 
 const router = express.Router();
 
@@ -334,7 +334,7 @@ To require authentication for certain routes, you can use the `auth` middleware.
 ```javascript
 const express = require('express');
 const auth = require('../../middlewares/auth');
-const userController = require('../../controllers/user.controller');
+const userController = require('../../controllers/users.controller');
 
 const router = express.Router();
 
@@ -362,7 +362,7 @@ The `auth` middleware can also be used to require certain rights/permissions to 
 ```javascript
 const express = require('express');
 const auth = require('../../middlewares/auth');
-const userController = require('../../controllers/user.controller');
+const userController = require('../../controllers/users.controller');
 
 const router = express.Router();
 

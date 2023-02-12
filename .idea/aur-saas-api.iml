@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="aur-saas-app" />
+    <orderEntry type="module" module-name="aur-cms-ui" />
   </component>
 </module>
